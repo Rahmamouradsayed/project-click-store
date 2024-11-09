@@ -1,0 +1,23 @@
+#Project-Scrum-Setup
+
+##Project Description
+This project aims to develop E-commerece website to allow user to browse products and select items/delete/update items in cards to make process shopping online easily.
+
+##Team Members and roles
+Rahma Mourad -> Scrum Master
+layla Zayed -> front-end
+Rahma Ibrahim -> back-end
+Mariam Mohamed -> tester
+
+##scrum setup
+sprint duration -> 2 week.
+sprint planning -> At every phase we start to set up goal and distribute tasks into team members.
+Sprint Review -> At the end of each sprint, we review completed tasks and discuss improvements.
+
+
+##Team roles
+Rahma Mourad-> SDS(introduction , system overview) , GUI , 6 functional requrment & 3 non functional requirments & Github Repo
+Layla Zayed-> SDS(System Architecture, UML Class Diagrams, Design ,Technology ,Testing ,Summary)
+Mariam Mohamed-> SRS(Introduction, System Overview, Functional Reuirment, Non-functional requirment)
+Rahma Ibragim-> SRS(Use Case Diagram, External Interface Requirements,Conclusion) 6 functional Requirments & sequence diagram
+
