@@ -17,8 +17,8 @@ Sprint Review -> At the end of each sprint, we review completed tasks and discus
 
 
 ##Team roles
-Rahma Mourad-> SDS(1.introduction , 2.system overview) , GUI ,  doc (functional &non-functional requirements) shared with Rahma Ibrahim & GitHub Repo
+Rahma Mourad-> SDS(1.introduction , 2.system overview) , GUI ,doc(functional &non-functional requirements) shared with Rahma Ibrahim & The URL of your GitHub repo showing the setup for scrum
 Layla Zayed-> SDS(3.System Architecture, 4.UML Class Diagrams, 5.Design ,Technology ,6.Testing ,7.Summary)
 Mariam Mohamed-> SRS(1.Introduction, 2.System Overview,3.Functional Requirement, 4.Non-functional requirement)
-Rahma Ebrahim-> SRS(Use Case Diagram, 5.External Interface Requirements, 6.Other Requirements ,7.Conclusion), doc (functional &non-functional requirements) shared with rahma mourad & sequence diagram
+Rahma Ebrahim-> SRS(Use Case Diagram, 5.External Interface Requirements, 6.Other Requirements ,7.Conclusion),doc(functional &non-functional requirements) shared with rahma mourad & sequence diagram
 
