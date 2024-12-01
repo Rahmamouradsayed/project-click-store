@@ -1,0 +1,30 @@
+{% extends "regesiter.html" %}
+
+{% block body %}
+<div class="form-container">
+    <div class="image-section">
+        <img src="{{ url_for('static', filename='images/signup.png') }}" alt="Login Image">
+    </div>
+
+    <div class="form-section">
+        <h1>Login</h1>
+        <form method="POST" action="{{ url_for('auth.login') }}">
+           
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control" required>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control" required>
+
+            <button type="submit" class="btn">Login</button>
+        </form>
+        
+        <p>
+            Forgot your password? 
+            <a href="{{ url_for('auth.reset_password_request') }}" class="reset-link">Reset Password</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

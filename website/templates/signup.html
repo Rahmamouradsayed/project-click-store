@@ -1,0 +1,40 @@
+{% extends "regesiter.html" %}
+
+{% block body %}
+<div class="form-container">
+    <div class="image-section">
+        <img src="{{ url_for('static', filename='images/signup.png') }}" alt="Signup Image">
+    </div>
+
+    <div class="form-section">
+        <h1>Sign Up</h1>
+        <form method="POST" action="{{ url_for('auth.sign_up') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control" required>
+
+            <label for="username">Username</label>
+            <input type="text" name="username" class="form-control" required>
+
+            <label for="password1">Password</label>
+            <input type="password" name="password1" class="form-control" required>
+
+            <label for="password2">Confirm Password</label>
+            <input type="password" name="password2" class="form-control" required>
+
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <a href="{{ url_for('googleLogin') }}" class="google-login-btn">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Google Logo">
+            Sign Up with Google
+        </a>
+    </div>
+</div>
+{% endblock %}
+
