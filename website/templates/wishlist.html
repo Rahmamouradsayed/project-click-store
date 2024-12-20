@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Your Wishlist</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        {% if products and products|length > 0 %}
+            <ul class="wishlist">
+                {% for product in products %}
+                    <li class="wishlist-item">
+                        <h2>{{ product.name }}</h2>
+                        <p>{{ product.description }}</p>
+                        <p>Price: ${{ product.price }}</p>
+                        <button onclick="window.location.href='/remove_from_wishlist/{{ product.id }}'">Remove</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Your wishlist is empty.</p>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Website. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

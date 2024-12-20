@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, flash, redirect, request, jsonify,session, url_for
-from .classes import Product, Cart, Order
+from .classes import Product, Cart, Order, Wishlist
 from flask_login import login_required, current_user
 from . import db
 from intasend import APIService
 import json
+
 UserController = Blueprint('UserController', __name__)
 
 
@@ -84,3 +85,30 @@ def cart():
         return redirect(url_for('auth.login'))
         
 
+@UserController.route('/add_to_wishlist/<int:product_id>', methods=['POST'])
+@login_required
+def add_to_wishlist(product_id):
+    existing_item = Wishlist.query.filter_by(customer_id=current_user.id, product_id=product_id).first()
+    if not existing_item:
+        new_item = Wishlist(customer_id=current_user.id, product_id=product_id)
+        db.session.add(new_item)
+        db.session.commit()
+        return jsonify({"status": "added"}), 200
+    return jsonify({"status": "exists"}), 200
+
+@UserController.route('/remove_from_wishlist/<int:product_id>', methods=['POST'])
+@login_required
+def remove_from_wishlist(product_id):
+    item = Wishlist.query.filter_by(customer_id=current_user.id, product_id=product_id).first()
+    if item:
+        db.session.delete(item)
+        db.session.commit()
+        return jsonify({"status": "removed"}), 200
+    return jsonify({"status": "not_found"}), 404
+
+@UserController.route('/wishlist')
+@login_required
+def wishlist():
+    items = Wishlist.query.filter_by(customer_id=current_user.id).all()
+    products = [item.product for item in items]
+    return render_template('wishlist.html', products=products)

@@ -14,6 +14,7 @@ class Customer(db.Model, UserMixin):
     reset_token_used = db.Column(db.Boolean, default=False) 
 
     cart_items = db.relationship('Cart', backref=db.backref('customer', lazy=True))
+    wishlist_items = db.relationship('Wishlist', backref=db.backref('customer', lazy=True))
     orders = db.relationship('Order', backref=db.backref('customer', lazy=True))
       
     @property
@@ -31,6 +32,11 @@ class Customer(db.Model, UserMixin):
     def __str__(self):
         return f'<Customer {self.id}>'
 
+class Wishlist(db.Model):
+    __tablename__ = 'Wishlist'
+    id = db.Column(db.Integer, primary_key=True)
+    customer_id = db.Column(db.Integer, db.ForeignKey('Customers.id'), nullable=False)  
+    product_id = db.Column(db.Integer, db.ForeignKey('Products.id'), nullable=False) 
 
 class Product(db.Model):
     __tablename__ = 'Products'  
@@ -44,6 +50,7 @@ class Product(db.Model):
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
     category = db.Column(db.String(50), nullable=False)
 
+    wishlist = db.relationship('Wishlist', backref=db.backref('product', lazy=True))
     carts = db.relationship('Cart', backref=db.backref('product', lazy=True))
     orders = db.relationship('Order', backref=db.backref('product', lazy=True))
 
