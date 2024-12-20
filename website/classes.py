@@ -76,5 +76,25 @@ class Order(db.Model):
 
     def __str__(self):
         return f'<Order {self.id}>'
+    
+
+class Contact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    def __str__(self):
+        return f'<Contact {self.id}>'
+    
+class Wishlist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    customer_link = db.Column(db.Integer, db.ForeignKey('Customers.id'), nullable=False)
+    product_link = db.Column(db.Integer, db.ForeignKey('Products.id'), nullable=False)
+
+    def __str__(self):
+        return f'<Wishlist {self.id}>'
+
+
+
 
 

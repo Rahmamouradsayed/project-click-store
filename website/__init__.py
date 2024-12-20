@@ -8,6 +8,8 @@ from flask_mail import Mail
 from authlib.integrations.flask_client import OAuth
 import os
 from dotenv import load_dotenv
+from flask_mail import Message
+from flask import flash
 
 load_dotenv()
 
@@ -28,7 +30,7 @@ def create_app():
     app.config['SECRET_KEY'] = os.getenv("FLASK_SECRET")
     app.config['SQLALCHEMY_DATABASE_URI'] = (
         'mssql+pyodbc://'
-        'LAPTOP-O3SDLSVS\\Rahma@LAPTOP-O3SDLSVS\\SQLEXPRESS/'  
+        'DESKTOP-G8ING52/'  
         'EcommerceDB?driver=ODBC+Driver+17+for+SQL+Server&Trusted_Connection=yes'
     )
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
@@ -59,25 +61,20 @@ def create_app():
 
     @app.route("/google-login")
     def googleLogin():
-    
         nonce = secrets.token_hex(16)
         session['nonce'] = nonce
-        
         redirect_uri = url_for("googleCallback", _external=True)
         return oauth.ClickStore.authorize_redirect(redirect_uri=redirect_uri, nonce=nonce)
 
     @app.route("/signin-google")
     def googleCallback():
         token = oauth.ClickStore.authorize_access_token()
-        
         nonce = session.get('nonce')
-
         user_info = oauth.ClickStore.parse_id_token(token, nonce=nonce)
 
         email = user_info.get("email")
         name = user_info.get("name")
 
-        
         existing_customer = Customer.query.filter_by(email=email).first()
         if not existing_customer:
             new_customer = Customer(email=email, username=name, password_hash=None)
@@ -88,10 +85,26 @@ def create_app():
             login_user(existing_customer)
 
         return redirect(url_for('UserController.home'))
+    
+    @app.route('/contact', methods=['GET', 'POST'])
+    def contact():
+        if request.method == 'POST':
+            name = request.form['name']
+            email = request.form['email']
+            message = request.form['message']
+
+            new_contact = Contact(name=name, email=email, message=message)
+            db.session.add(new_contact)
+            db.session.commit()
+
+            flash("Your message has been sent successfully!", "success")
+            return redirect('/contact')
+
+        return render_template('contact.html')
 
     from .user_control import UserController
     from .auth import auth
-    from .classes import Customer, Cart, Product, Order
+    from .classes import Customer, Cart, Product, Order, Contact
     from .admin import admin
 
     app.register_blueprint(UserController, url_prefix='/')
@@ -101,3 +114,4 @@ def create_app():
     create_database(app)
 
     return app
+

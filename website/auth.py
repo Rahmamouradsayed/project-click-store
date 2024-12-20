@@ -224,3 +224,6 @@ def reset_password(token):
     else:
         flash('The password reset token is either invalid or expired.')
         return redirect(url_for('auth.reset_password_request'))
+
+
+
