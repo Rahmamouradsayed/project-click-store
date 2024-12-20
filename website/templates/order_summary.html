@@ -1,0 +1,24 @@
+{% extends "home.html" %}
+
+{% block body %}
+<div class="container">
+    <h2>Order Summary</h2>
+    <div class="order-summary">
+
+        <h3>Items in your order:</h3>
+        <ul>
+            {% for product, quantity in items %}
+                <li>{{ product.product_name }} - Quantity: {{ quantity }} - Price: ${{ product.current_price * quantity }}</li>
+            {% endfor %}
+        </ul>        
+        <p>Total Items: {{ total_items }}</p>
+        <p>Total Price: ${{ total_price }}</p>
+    </div>
+    <div>
+        <form method="POST" action="{{ url_for('UserController.place_order') }}">
+            <button type="submit" class="place-order-btn">Place Order</button>
+        </form>
+        
+    </div>
+</div>
+{% endblock %}

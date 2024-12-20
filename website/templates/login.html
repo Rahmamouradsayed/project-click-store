@@ -20,11 +20,18 @@
 
             <button type="submit" class="btn">Login</button>
         </form>
-        
+        <p>
+            Don't have an account? <br>
+            <a href="{{ url_for('auth.sign_up') }}">
+                <button class="btn btn-primary">Sign up</button>
+            </a>
+        </p>
+             
         <p>
             Forgot your password? 
             <a href="{{ url_for('auth.reset_password_request') }}" class="reset-link">Reset Password</a>
         </p>
+
     </div>
 </div>
 {% endblock %}

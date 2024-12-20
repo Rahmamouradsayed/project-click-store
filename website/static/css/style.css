@@ -210,7 +210,7 @@ body {
 }
 /* Container for the products and order summary */
 .container {
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
     background-color: #ffffffcb;
     border-radius: 8px;
@@ -222,43 +222,79 @@ body {
     gap: 20px;
 }
 
-/* Order Summary */
-.order-summary {
-    width: 320px; 
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-top: 20px;
-    /* Center the order summary */
-}
 
-.order-summary h3 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.order-summary p {
-    font-size: 16px;
-    color: #555;
-    margin: 10px 0;
-}
-
-.order-summary .place-order-btn {
+.complete-order-btn {
     width: 100%;
-    padding: 12px;
-    background-color: #27ae60;
+    padding: 10px;
+    margin: 20px auto 0; 
+    background-color: #0b7000;
     color: #fff;
     border: none;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+.place-order-btn {
+    width: 100%;
+    padding: 10px;
+    margin: 20px auto 0; 
+    background-color: #0b7000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+/* Order Summary*/
+.order-summary {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
 
-.order-summary .place-order-btn:hover {
-    background-color: #2ecc71;
+.order-summary h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.order-summary p {
+    font-size: 1.1em;
+    margin: 10px 0;
+    color: #555;
+}
+
+.order-summary ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order-summary ul li {
+    font-size: 1em;
+    margin-bottom: 8px;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary ul li:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
