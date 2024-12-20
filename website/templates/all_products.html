@@ -1,0 +1,11 @@
+{% extends "home.html" %}
+
+{% block body %}
+    <div class="all-products">
+        <div class="product-list">
+            {% for product in products %}
+                {% include 'product_item.html' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

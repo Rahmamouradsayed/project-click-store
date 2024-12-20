@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, flash, redirect, request, url_for, session
-from .classes import Customer
+from .classes import Customer, Product
 from . import db, mail
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -87,7 +87,6 @@ def login():
 
     session['csrf_token'] = generate_csrf_token()
     return render_template('login.html', csrf_token=session['csrf_token']) 
-
 
 @auth.route('/logout', methods=['GET'])
 @login_required
@@ -224,3 +223,4 @@ def reset_password(token):
     else:
         flash('The password reset token is either invalid or expired.')
         return redirect(url_for('auth.reset_password_request'))
+

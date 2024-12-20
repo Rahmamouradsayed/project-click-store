@@ -27,10 +27,11 @@ def create_app():
 
     app.config['SECRET_KEY'] = os.getenv("FLASK_SECRET")
     app.config['SQLALCHEMY_DATABASE_URI'] = (
-        'mssql+pyodbc://'
-        'LAPTOP-O3SDLSVS\\Rahma@LAPTOP-O3SDLSVS\\SQLEXPRESS/'  
-        'EcommerceDB?driver=ODBC+Driver+17+for+SQL+Server&Trusted_Connection=yes'
-    )
+    'mssql+pyodbc://'
+    'DESKTOP-KK89UUN\\SQLEXPRESS/'  
+    'EcommerceDB?driver=ODBC+Driver+17+for+SQL+Server&Trusted_Connection=yes'
+)
+
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
 
     db.init_app(app)
