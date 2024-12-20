@@ -1,0 +1,50 @@
+body {
+    background: linear-gradient(135deg, #f8f9fa, #ffe4e1);
+    font-family: 'Arial', sans-serif;
+    color: #555;
+}
+
+.text-pink {
+    color: #e91e63;
+}
+
+.btn-pink {
+    background-color: #e91e63;
+    color: #fff;
+    border: none;
+}
+
+.btn-pink:hover {
+    background-color: #d81b60;
+    color: #fff;
+}
+
+.btn-outline-pink {
+    color: #e91e63;
+    border: 2px solid #e91e63;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.btn-outline-pink:hover {
+    background-color: #e91e63;
+    color: #fff;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+form {
+    background: #fff;
+}
+
+form .form-control {
+    border-radius: 8px;
+}
+
+form .btn {
+    border-radius: 8px;
+}

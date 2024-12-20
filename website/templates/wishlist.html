@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Your Wishlist</h1>
+    <ul>
+        {% for item in wishlist %}
+            <li>
+                <a href="{{ url_for('product_detail', item_id=item.product.id) }}">{{ item.product.product_name }}</a>
+                <form action="{{ url_for('remove_from_wishlist', item_id=item.product.id) }}" method="POST">
+                    <button type="submit">Remove from Wishlist</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
