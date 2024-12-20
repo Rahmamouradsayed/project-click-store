@@ -28,7 +28,7 @@ def create_app():
     app.config['SECRET_KEY'] = os.getenv("FLASK_SECRET")
     app.config['SQLALCHEMY_DATABASE_URI'] = (
     'mssql+pyodbc://'
-    'DESKTOP-KK89UUN\\SQLEXPRESS/'  
+    'DESKTOP-G8ING52/'  
     'EcommerceDB?driver=ODBC+Driver+17+for+SQL+Server&Trusted_Connection=yes'
 )
 
