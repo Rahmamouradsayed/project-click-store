@@ -26,7 +26,8 @@ def create_app():
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = os.getenv("FLASK_SECRET")
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://202201906@zewailcity.edu.eg@clickstore.database.windows.net/EcommerceDB?driver=ODBC+Driver+17+for+SQL+Server&authentication=ActiveDirectoryPassword'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://202201906@zewailcity.edu.eg:Alohomora_2003@clickstore.database.windows.net/EcommerceDB?driver=ODBC+Driver+17+for+SQL+Server&authentication=ActiveDirectoryPassword'
+
 
 
 
