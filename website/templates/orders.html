@@ -15,16 +15,18 @@
                 <div class="card-body">
                
                     {% for item in orders %}
-
+                    
                     <div class="row">
                         <div class="col-sm-3 text-center align-self-center">
-                            <img src="{{ item.product.product_picture }}" alt="" class="img-fluid img-thumbnail shadow-sm" height="150px" width="150px">
+                            <img src="{{ url_for('static', filename=item.product.product_picture) }}" alt="" class="img-fluid img-thumbnail shadow-sm" height="150px" width="150px">
                         </div>
+                        
+                        
                         <div class="col-sm-7">
                             
                             <h3>{{ item.product.product_name }}</h3>
                             <p class="mb-2 text-muted small">Quantity: {{ item.quantity }}</p>
-                            <p class="mb-2 text-muted small">Price: Ksh {{ item.price }}</p>
+                            <p class="mb-2 text-muted small">Price: $ {{ item.price }}</p>
                                
                                 
                             <div class="col-sm-4">

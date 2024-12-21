@@ -1,0 +1,22 @@
+{% extends "home.html" %}
+
+{% block body %}
+<main>
+    {% if products and products|length > 0 %}
+        <div class="container">
+            <div class="wishlist row">
+                {% for product in products %}
+                    <div class="col-md-4 mb-4">
+                        {% include 'product_item.html' %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>Your wishlist is empty.</p>
+    {% endif %}
+</main>
+<footer>
+    <p>&copy; 2024 Your Website. All Rights Reserved.</p>
+</footer>
+{% endblock %}

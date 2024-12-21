@@ -208,7 +208,7 @@ body {
     justify-content: space-around;
     padding: 20px;
 }
-/* Container for the products and order summary */
+/* Container for the products in carts */
 .container {
     width: 80%;
     margin: 0 auto;

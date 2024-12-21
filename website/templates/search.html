@@ -1,7 +1,6 @@
 {% extends "home.html" %}
 
 {% block body %}
-
 <div class="search-results">
     {% if products %}
         <h2>Results for "{{ keyword }}"</h2>
@@ -14,5 +13,4 @@
         <p>No products found for "{{ keyword }}".</p>
     {% endif %}
 </div>
-
 {% endblock %}

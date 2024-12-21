@@ -1,10 +1,10 @@
 import sys
 import io
 from flask_login import LoginManager, login_user
-from flask import Flask, render_template, session, request, redirect, url_for
+from flask import Flask, render_template, session, request, redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
 import secrets
-from flask_mail import Mail
+from flask_mail import Mail,Message
 from authlib.integrations.flask_client import OAuth
 import os
 from dotenv import load_dotenv
@@ -57,6 +57,7 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return Customer.query.get(int(id))
+    
 
     @app.route("/google-login")
     def googleLogin():
@@ -66,7 +67,7 @@ def create_app():
         
         redirect_uri = url_for("googleCallback", _external=True)
         return oauth.ClickStore.authorize_redirect(redirect_uri=redirect_uri, nonce=nonce)
-
+        
     @app.route("/signin-google")
     def googleCallback():
         token = oauth.ClickStore.authorize_access_token()
@@ -89,10 +90,30 @@ def create_app():
             login_user(existing_customer)
 
         return redirect(url_for('UserController.home'))
+    
+    @app.route('/contact', methods=['GET', 'POST'])
+    def contact():
+        if request.method == 'POST':
+            name = request.form['name']
+            email = request.form['email']
+            message = request.form['message']
+
+            new_contact = Contact(name=name, email=email, message=message)
+            db.session.add(new_contact)
+            db.session.commit()
+            
+            msg = Message("Contact Us Message", sender=email, recipients=[os.getenv("MAIL_USERNAME")])
+            msg.body = f"Message from {name} ({email}):\n\n{message}"
+            mail.send(msg)
+
+            flash("Your message has been sent successfully!")
+            return redirect('/contact')
+
+        return render_template('contact.html')
 
     from .user_control import UserController
     from .auth import auth
-    from .classes import Customer, Cart, Product, Order
+    from .classes import Customer, Cart, Product, Order, Contact
     from .admin import admin
 
     app.register_blueprint(UserController, url_prefix='/')

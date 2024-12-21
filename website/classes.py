@@ -2,6 +2,7 @@ from . import db
 from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import current_user
 
 
 class Customer(db.Model, UserMixin):
@@ -15,7 +16,8 @@ class Customer(db.Model, UserMixin):
 
     cart_items = db.relationship('Cart', backref=db.backref('customer', lazy=True))
     orders = db.relationship('Order', backref=db.backref('customer', lazy=True))
-      
+    wishlist_items = db.relationship('Wishlist', backref=db.backref('customer', lazy=True))
+
     @property
     def password(self):
         raise AttributeError('Password is not a readable Attribute')
@@ -46,7 +48,10 @@ class Product(db.Model):
 
     carts = db.relationship('Cart', backref=db.backref('product', lazy=True))
     orders = db.relationship('Order', backref=db.backref('product', lazy=True))
-
+    wishlist = db.relationship('Wishlist', backref=db.backref('product', lazy=True))
+    @property
+    def in_wishlist(self):
+        return Wishlist.query.filter_by(customer_id=current_user.id, product_id=self.id).first() is not None
     def __str__(self):
         return f'<Product {self.product_name}>'
 
@@ -78,3 +83,16 @@ class Order(db.Model):
         return f'<Order {self.id}>'
 
 
+class Wishlist(db.Model):
+    __tablename__ = 'Wishlist'
+    id = db.Column(db.Integer, primary_key=True)
+    customer_id = db.Column(db.Integer, db.ForeignKey('Customers.id'), nullable=False)  
+    product_id = db.Column(db.Integer, db.ForeignKey('Products.id'), nullable=False) 
+
+class Contact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    def __str__(self):
+        return f'<Contact {self.id}>'

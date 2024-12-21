@@ -48,11 +48,11 @@ $('.minus-cart').click(function(){
 })
 
 
-$('.remove-cart').click(function(){
-    
-    var id = $(this).attr('pid').toString()
-
-    var to_remove = this.parentNode.parentNode.parentNode.parentNode
+$('.remove-cart').on('click', function(e){
+    e.preventDefault(); 
+    console.log("Button clicked"); 
+    var id = $(this).attr('pid').toString(); 
+    var to_remove = $(this).closest('.product-item');
 
     $.ajax({
         type: 'GET',
@@ -60,13 +60,19 @@ $('.remove-cart').click(function(){
         data: {
             cart_id: id
         },
-
         success: function(data){
-            document.getElementById('amount_tt').innerText = data.amount
-            document.getElementById('totalamount').innerText = data.total
-            to_remove.remove()
+            console.log(data); 
+            $('#amount_tt').text(data.amount);
+            $('#totalamount').text(data.total);
+
+            to_remove.fadeOut(500, function() {
+                $(this).remove();  
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("Error removing item from cart: " + error);
         }
-    })
+    });
+});
 
 
-})
