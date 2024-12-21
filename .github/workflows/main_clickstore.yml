@@ -45,10 +45,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -62,6 +58,10 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'ClickStore'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_84E887D66A1443AD83C961A90561A78E }}
+          app-name: 'ClickStore'  # Azure Web App name
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Your Azure publish profile
+
+    environment:
+      name: Development
+      url: 'clickstore-bpdpghavaahta4bk.southafricanorth-01.azurewebsites.net'  # Your web app URL
+
