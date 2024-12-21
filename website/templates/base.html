@@ -74,17 +74,21 @@
                         <ul class="dropdown-menu" aria-labelledby="accountDropdown">
                             {% if current_user.is_authenticated %}
                                 <li><a class="dropdown-item" href="/profile/{{ current_user.id }}">Profile</a></li>
-                                <li><a class="dropdown-item" href="/orders">Orders</a></li>
+                    
+                                {% if current_user.id == 1 %}
+                                <li><a class="dropdown-item" href="{{ url_for('admin.admin_page') }}">Admin Page</a></li>
+                                {% else %}
+                                    <li><a class="dropdown-item" href="/orders">Orders</a></li>
+                                {% endif %}
+                                
                                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
                             {% else %}
                                 <li><a class="dropdown-item" href="/login">Login</a></li>
                                 <li><a class="dropdown-item" href="/sign-up">Signup</a></li>
-                                
-                                
-                                
                             {% endif %}
                         </ul>
                     </li>
+                    
                 </ul>
             </div>
         </div>

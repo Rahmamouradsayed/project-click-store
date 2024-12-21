@@ -101,12 +101,11 @@ def create_app():
             new_contact = Contact(name=name, email=email, message=message)
             db.session.add(new_contact)
             db.session.commit()
-            
             msg = Message("Contact Us Message", sender=email, recipients=[os.getenv("MAIL_USERNAME")])
             msg.body = f"Message from {name} ({email}):\n\n{message}"
             mail.send(msg)
 
-            flash("Your message has been sent successfully!")
+            flash("Your message has been sent successfully!", "success")
             return redirect('/contact')
 
         return render_template('contact.html')
