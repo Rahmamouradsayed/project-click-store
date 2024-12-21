@@ -2,7 +2,7 @@ name: Build and deploy Python app to Azure Web App
 
 env:
   AZURE_WEBAPP_NAME: ClickStore  # Replace with your Azure Web App name
-  PYTHON_VERSION: '3.11'            # Set to the version of Python you want to use
+  PYTHON_VERSION: '3.12'            # Set to the version of Python you want to use
 
 on:
   push:
