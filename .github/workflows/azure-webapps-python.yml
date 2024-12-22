@@ -14,13 +14,13 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Run on the latest Ubuntu runner
+    runs-on: ubuntu-24.04 
 
     steps:
-      - uses: actions/checkout@v3  # Checkout code
+      - uses: actions/checkout@v4  # Checkout code
 
       - name: Set up Python version
-        uses: actions/setup-python@v3.0.0
+        uses: actions/setup-python@v4.0.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: 'pip'  # Cache pip dependencies to speed up builds
@@ -33,7 +33,7 @@ jobs:
           pip install -r requirements.txt  # Install dependencies from requirements.txt
 
       - name: Upload artifact for deployment jobs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: python-app
           path: |
@@ -47,11 +47,11 @@ jobs:
     needs: build  # Ensure the build job completes before deployment
     environment:
       name: 'Development'  # Use the correct environment name set in GitHub
-      url: 'https://clickstore-bpdpghavaahta4bk.southafricanorth-01.azurewebsites.net'  # Your Azure Web App URL
+      url: 'https://clickstore-bpdpghavaahta4bk.southafricanorth.azurewebsites.net'  # Your Azure Web App URL
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: python-app
           path: .
