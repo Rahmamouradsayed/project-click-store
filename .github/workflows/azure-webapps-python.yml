@@ -1,71 +1,66 @@
-name: Build and deploy Python app to Azure Web App
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+# More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-env:
-  AZURE_WEBAPP_NAME: 'ClickStore'  # Azure Web App name (should match your app in Azure)
-  PYTHON_VERSION: '3.12.8'         # Python version to use
+name: Build and deploy Python app to Azure Web App - ClickStore
 
 on:
   push:
-    branches: [ "main" ]  # Trigger on push to the main branch
-  workflow_dispatch:       # Allow manual trigger from GitHub UI
-
-permissions:
-  contents: read  # Allow read access to repository contents
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04  # Specify the operating system to run the build job
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3  # Checkout code
+      - uses: actions/checkout@v4
 
       - name: Set up Python version
-        uses: actions/setup-python@v3.0.0
+        uses: actions/setup-python@v1
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'  # Cache pip dependencies to speed up builds
+          python-version: '3.12'
 
-      - name: Install dependencies
+      - name: Create and start virtual environment
         run: |
           python -m venv venv
           source venv/bin/activate
-          pip install --upgrade pip setuptools wheel  # Ensure pip, setuptools, and wheel are upgraded
-          pip install -r requirements.txt  # Install dependencies from requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+      - name: Zip artifact for deployment
+        run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
         with:
           name: python-app
           path: |
-            **/*                     # Include all files recursively
-            !venv/**                 # Exclude virtual environment (if present)
-            !.git/**                 # Exclude Git-related files
-            !node_modules/**         # Exclude node_modules if using JavaScript tools
-            !*.pyc                   # Exclude Python cache files
-            !__pycache__/**  
+            release.zip
+            !venv/
 
   deploy:
-    needs: build  # Ensure the deploy job runs after the build job
-    runs-on: ubuntu-latest  # Use the latest version of Ubuntu for the deploy job
-    permissions:
-      contents: none  # No content access needed in the deploy job
-    environment:
-      name: 'Development'  # Use the correct environment name set in GitHub
-      url: 'https://clickstore-bpdpghavaahta4bk.southafricanorth-01.azurewebsites.net'  # Your Azure Web App URL
-
+    runs-on: ubuntu-latest
+    needs: build
     steps:
-      - name: Download Artifacts
+      - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: python-app
-          path: artifact
 
-      - name: List downloaded artifacts
-        run: ls -R artifact  # List all files downloaded to verify the artifact
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
 
-      - name: Deploy to Azure Web App
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
         with:
-          app-name: 'ClickStore'  # Specify your Azure Web App name
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Use your publish profile secret
+          app-name: 'ClickStore'  # Azure Web App name
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Your Azure publish profile
+
+    environment:
+      name: Development
+      url: 'clickstore-bpdpghavaahta4bk.southafricanorth-01.azurewebsites.net' 
