@@ -6,7 +6,9 @@ from wtforms.validators import DataRequired, NumberRange
 from werkzeug.utils import secure_filename
 from .classes import Product, Order, Customer
 from . import db
+import os
 
+from flask import current_app
 
 class ShopItemsForm(FlaskForm):
     product_name = StringField('Name of Product', validators=[DataRequired()])
@@ -15,6 +17,11 @@ class ShopItemsForm(FlaskForm):
     in_stock = IntegerField('In Stock', validators=[DataRequired(), NumberRange(min=0)])
     product_picture = FileField('Product Picture', validators=[DataRequired()])
     flash_sale = BooleanField('Flash Sale')
+    category = SelectField('Category', choices=[
+        ('accessories', 'Accessories'),
+        ('womens_clothes', "Women's Clothing"),
+        ('shoes', 'Shoes'),
+    ], validators=[DataRequired()])
     add_product = SubmitField('Add Product')
     update_product = SubmitField('Update')
 
@@ -27,15 +34,22 @@ class OrderForm(FlaskForm):
 
 admin = Blueprint('admin', __name__)
 
-@admin.route('/media/<path:filename>')
-def get_image(filename):
-    return send_from_directory('../media', filename)
+
+def get_images():
+    image_folder = os.path.join(current_app.root_path, 'static', 'images')
+    if not os.path.exists(image_folder):
+        os.makedirs(image_folder)
+    images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'jpeg', 'png'))]
+    return images
+
 
 @admin.route('/add-shop-items', methods=['GET', 'POST'])
 @login_required
 def add_shop_items():
     if current_user.id == 1:
         form = ShopItemsForm()
+
+        image_list = get_images()
 
         if form.validate_on_submit():
             product_name = form.product_name.data
@@ -46,11 +60,20 @@ def add_shop_items():
 
             file = form.product_picture.data
 
+            
             file_name = secure_filename(file.filename)
+            file_path = os.path.join('static', 'images', file_name)
 
-            file_path = f'./media/{file_name}'
+            
+            if not os.path.exists(os.path.dirname(file_path)):
+                os.makedirs(os.path.dirname(file_path))
 
             file.save(file_path)
+
+            category = form.category.data  
+            if not category:
+                flash('Category must be selected.')
+                return render_template('add_shop_items.html', form=form, images=image_list)
 
             new_shop_item = Product()
             new_shop_item.product_name = product_name
@@ -58,22 +81,26 @@ def add_shop_items():
             new_shop_item.previous_price = previous_price
             new_shop_item.in_stock = in_stock
             new_shop_item.flash_sale = flash_sale
+            new_shop_item.category = category  
 
-            new_shop_item.product_picture = file_path
+            new_shop_item.product_picture = f'images/{file_name}'
+
 
             try:
                 db.session.add(new_shop_item)
                 db.session.commit()
                 flash(f'{product_name} added Successfully')
-                print('Product Added')
-                return render_template('add_shop_items.html', form=form)
+                return redirect('/shop-items')
             except Exception as e:
-                print(e)
-                flash('Product Not Added!!')
+                db.session.rollback()  
+                flash(f'Error: {str(e)}')
 
-        return render_template('add_shop_items.html', form=form)
+        return render_template('add_shop_items.html', form=form, images=image_list)
 
     return render_template('404.html')
+
+
+
 
 @admin.route('/shop-items', methods=['GET', 'POST'])
 @login_required
@@ -97,6 +124,7 @@ def update_item(item_id):
         form.current_price.render_kw = {'placeholder': item_to_update.current_price}
         form.in_stock.render_kw = {'placeholder': item_to_update.in_stock}
         form.flash_sale.render_kw = {'placeholder': item_to_update.flash_sale}
+        form.category.data = item_to_update.category  
 
         if form.validate_on_submit():
             product_name = form.product_name.data
@@ -104,31 +132,45 @@ def update_item(item_id):
             previous_price = form.previous_price.data
             in_stock = form.in_stock.data
             flash_sale = form.flash_sale.data
+            category = form.category.data  
 
             file = form.product_picture.data
-
             file_name = secure_filename(file.filename)
-            file_path = f'./media/{file_name}'
 
-            file.save(file_path)
+           
+            if file:
+                file_path = os.path.join('static', 'images', file_name)
+
+                if not os.path.exists(os.path.dirname(file_path)):
+                    os.makedirs(os.path.dirname(file_path))
+
+                file.save(file_path)
+                product_picture = f'images/{file_name}'  
+            else:
+                
+                product_picture = item_to_update.product_picture
 
             try:
-                Product.query.filter_by(id=item_id).update(dict(product_name=product_name,
-                                                                current_price=current_price,
-                                                                previous_price=previous_price,
-                                                                in_stock=in_stock,
-                                                                flash_sale=flash_sale,
-                                                                product_picture=file_path))
+                Product.query.filter_by(id=item_id).update(dict(
+                    product_name=product_name,
+                    current_price=current_price,
+                    previous_price=previous_price,
+                    in_stock=in_stock,
+                    flash_sale=flash_sale,
+                    category=category,  
+                    product_picture=product_picture  
+                ))
 
                 db.session.commit()
                 flash(f'{product_name} updated Successfully')
-                print('Product Upadted')
+                print('Product Updated')
                 return redirect('/shop-items')
             except Exception as e:
-                print('Product not Upated', e)
+                print('Product not Updated', e)
                 flash('Item Not Updated!!!')
 
         return render_template('update_item.html', form=form)
+
     return render_template('404.html')
 
 
@@ -183,11 +225,14 @@ def update_order(order_id):
         return render_template('order_update.html', form=form)
 
     return render_template('404.html')
+
+
 @admin.route('/category/<string:category>', methods=['GET'])
 def category(category):
     category_map = {
         'accessories': 'Accessories',
-        'womens_clothes': "Women's Clothing"
+        'womens_clothes': "Women's Clothing",
+        'shoes': 'Shoes' 
     }
     category_name = category_map.get(category, 'Category')
     
