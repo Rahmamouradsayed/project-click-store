@@ -47,7 +47,7 @@ jobs:
     needs: build  # Ensure the build job completes before deployment
     environment:
       name: 'Development'  # Use the correct environment name set in GitHub
-      url: 'https://clickstore-bpdpghavaahta4bk.southafricanorth.azurewebsites.net'  # Your Azure Web App URL
+      url: 'clickstore-bpdpghavaahta4bk.southafricanorth-01.azurewebsites.net'  # Your Azure Web App URL
 
     steps:
       - name: Download artifact from build job
