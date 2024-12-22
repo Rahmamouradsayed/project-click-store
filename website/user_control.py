@@ -249,4 +249,8 @@ def wishlist():
     items = Wishlist.query.filter_by(customer_id=current_user.id).all()
     products = [item.product for item in items]
     return render_template('wishlist.html', products=products)
+@UserController.route('/all-products', endpoint='user_all_products')
+def all_products():
+    products = Product.query.all()
+    return render_template('all_products.html', products=products)
 
