@@ -18,7 +18,9 @@
         <p class="lead" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.6);">
             Find your next style. New arrivals just for you!
         </p>
-        <a href="#products" class="btn btn-lg btn-outline-light">Shop Now</a>
+        <a href="{{ url_for('UserController.user_all_products') }}" class="btn btn-lg btn-outline-light">Shop Now</a>
+
+
     </div>
 </div>
 
@@ -40,7 +42,9 @@
         <div class="col-md-3 mb-4">
             <div class="category-card text-center" style="background-image: url('{{ url_for('static', filename='images/shoes.jpg') }}');">
                 <h5 class="fw-bold">shoes</h5>
-                <a href="#" class="btn btn-outline-dark mt-3">Explore</a>
+                <a href="{{ url_for('admin.category', category='shoes') }}" class="btn btn-outline-dark mt-3">Explore</a>
+
+
             </div>
         </div>
 
