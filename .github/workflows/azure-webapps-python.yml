@@ -50,11 +50,14 @@ jobs:
       url: 'clickstore-bpdpghavaahta4bk.southafricanorth-01.azurewebsites.net'  # Your Azure Web App URL
 
     steps:
-      - name: Download artifact from build job
+      - name: Download Artifacts
         uses: actions/download-artifact@v3
         with:
           name: python-app
           path: .
+
+      - name: List Files
+        run: ls -R    
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
