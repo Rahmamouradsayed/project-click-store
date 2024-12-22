@@ -37,8 +37,12 @@ jobs:
         with:
           name: python-app
           path: |
-            .               # Include all files for deployment
-            !venv/          # Exclude the virtual environment folder
+            **/*                     # Include all files recursively
+            !venv/**                 # Exclude virtual environment (if present)
+            !.git/**                 # Exclude Git-related files
+            !node_modules/**         # Exclude node_modules if using JavaScript tools
+            !*.pyc                   # Exclude Python cache files
+            !__pycache__/**  
 
   deploy:
     permissions:
