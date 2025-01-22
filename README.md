@@ -1,5 +1,5 @@
-# project-click-store
-E-commerce web application designed to provide a seamless shopping experience for customers purchasing clothing and fashion products. The platform focuses on user-friendly features, efficient order management, and secure transactions, while empowering store administrators with tools to manage products and orders effectively.
+# project description 
+Click Store is an e-commerce website that makes shopping for clothing and fashion products easy and enjoyable. It offers a smooth browsing experience, allowing customers to search, view, and manage their shopping cart and wishlist. The platform also provides store administrators with tools to manage products and track orders efficiently.
 ## Key Features:
 User Registration and Authentication:
 Account creation,secure login,logout,reset password by email verification link , and Google OAuth login options.
