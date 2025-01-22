@@ -2,17 +2,19 @@
 E-commerce web application designed to provide a seamless shopping experience for customers purchasing clothing and fashion products. The platform focuses on user-friendly features, efficient order management, and secure transactions, while empowering store administrators with tools to manage products and orders effectively.
 ## Key Features:
 User Registration and Authentication:
-Account creation, secure login, password reset, and Google OAuth login options.
+Account creation, secure login,logout, password reset with email verification link , and Google OAuth login options.
+
+Product Browsing:
+Search, view products, and manage a wishlist(add/delete).
 
 Order Management:
-Add to cart, update product quantities, search for products, and manage a wishlist.
+Add to cart, update product quantities or remove items from the cart.
 
 Admin Management:
-Manage products, view detailed orders, and track order statuses.
+Manage products,has access on customer data, view detailed orders, and track order statuses.
 
 Secure Checkout:
 Review order summaries and confirm purchases easily and securely.
-Click Store combines simplicity and functionality to enhance the shopping experience for users and streamline management for store administrators.
 
 ## Requirement:  Ensure you have the following python libraries installed
 Authlib==1.3.2  
