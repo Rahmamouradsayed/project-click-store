@@ -2,7 +2,7 @@
 E-commerce web application designed to provide a seamless shopping experience for customers purchasing clothing and fashion products. The platform focuses on user-friendly features, efficient order management, and secure transactions, while empowering store administrators with tools to manage products and orders effectively.
 ## Key Features:
 User Registration and Authentication:
-Account creation, secure login,logout, password reset with email verification link , and Google OAuth login options.
+Account creation,secure login,logout,reset password by email verification link , and Google OAuth login options.
 
 Product Browsing:
 Search, view products, and manage a wishlist(add/delete).
