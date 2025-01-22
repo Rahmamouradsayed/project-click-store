@@ -1,56 +1,18 @@
 # project-click-store
-E-commerce website for fashion products 
-Click Store: E-commerce web application that focuses on providing a smooth shopping experience for users who intend to purchase clothing and fashion items.
-Click Store is to enhance the shopping experience for customers, focus on user-centric features besides empowering store owners ensuring smooth interaction between all parties in the shopping process.
-## Features:
+E-commerce web application designed to provide a seamless shopping experience for customers purchasing clothing and fashion products. The platform focuses on user-friendly features, efficient order management, and secure transactions, while empowering store administrators with tools to manage products and orders effectively.
+## Key Features:
+User Registration and Authentication:
+Account creation, secure login, password reset, and Google OAuth login options.
 
-Features
-User Registration and Authentication
+Order Management:
+Add to cart, update product quantities, search for products, and manage a wishlist.
 
-Sign Up: Create an account with a username, email, and password.
+Admin Management:
+Manage products, view detailed orders, and track order statuses.
 
-Login: Access your account with registered credentials.
-
-Logout: Securely log out of your account.
-
-Reset Password: Reset your password using an email verification link.
-
-Change Password: Update your password if you remember the current one.
-
-OAuth Login: Sign in using your Google account.
-
-User Profile: View and manage your account details.
-
-Order Management
-
-Add to Cart: Add products to your shopping cart.
-
-Remove from Cart: Remove products you no longer wish to buy.
-
-Update Quantity: Adjust product quantities in the cart.
-
-Search Products: Find products easily using a search bar.
-
-Add to Wishlist: Save products for future consideration.
-
-Remove from Wishlist: Remove unwanted products from your wishlist.
-
-View Products: Browse all available products on the platform.
-
-Admin Management
-
-View Order Status: Track and update order statuses (e.g., Pending, Accepted, Delivered).
-
-Order Details: View detailed information about each order.
-
-Add Products: Add new products to the platform.
-
-Remove Products: Remove products from the platform.
-
-Checkout
-Order Summary: Review product details, quantities, and prices before confirming.
-
-Order Placement: Confirm and place your order seamlessly.
+Secure Checkout:
+Review order summaries and confirm purchases easily and securely.
+Click Store combines simplicity and functionality to enhance the shopping experience for users and streamline management for store administrators.
 
 ## Requirement:  Ensure you have the following python libraries installed
 Authlib==1.3.2  
