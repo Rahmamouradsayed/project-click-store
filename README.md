@@ -10,26 +10,46 @@ User Registration and Authentication
 Sign Up: Create an account with a username, email, and password.
 
 Login: Access your account with registered credentials.
+
 Logout: Securely log out of your account.
+
 Reset Password: Reset your password using an email verification link.
+
 Change Password: Update your password if you remember the current one.
+
 OAuth Login: Sign in using your Google account.
+
 User Profile: View and manage your account details.
+
 Order Management
+
 Add to Cart: Add products to your shopping cart.
+
 Remove from Cart: Remove products you no longer wish to buy.
+
 Update Quantity: Adjust product quantities in the cart.
+
 Search Products: Find products easily using a search bar.
+
 Add to Wishlist: Save products for future consideration.
+
 Remove from Wishlist: Remove unwanted products from your wishlist.
+
 View Products: Browse all available products on the platform.
+
 Admin Management
+
 View Order Status: Track and update order statuses (e.g., Pending, Accepted, Delivered).
+
 Order Details: View detailed information about each order.
+
 Add Products: Add new products to the platform.
+
 Remove Products: Remove products from the platform.
+
 Checkout
 Order Summary: Review product details, quantities, and prices before confirming.
+
 Order Placement: Confirm and place your order seamlessly.
 
 ## Requirement:  Ensure you have the following python libraries installed
